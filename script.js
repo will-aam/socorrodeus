@@ -5,12 +5,27 @@ document.addEventListener("DOMContentLoaded", () => {
     downloadBtn.textContent = "Baixar Arquivo";
     document.body.insertBefore(downloadBtn, estoqueDiv);
 
-    const searchInput = document.createElement("input");
-    searchInput.type = "text";
-    searchInput.id = "search-input";
-    searchInput.placeholder = "Buscar por nome...";
-    searchInput.style.marginBottom = "15px";
-    document.body.insertBefore(searchInput, estoqueDiv);
+    // Criar um container para o input de busca
+const searchContainer = document.createElement("div");
+searchContainer.classList.add("search-container");
+
+// Criar o input de busca
+const searchInput = document.createElement("input");
+searchInput.type = "text";
+searchInput.id = "search-input";
+searchInput.placeholder = "Buscar por nome...";
+
+// Criar um ícone de busca
+const searchIcon = document.createElement("i");
+searchIcon.classList.add("fas", "fa-search"); // Usa FontAwesome, se disponível
+
+// Adicionar os elementos ao container
+searchContainer.appendChild(searchInput);
+searchContainer.appendChild(searchIcon);
+
+// Inserir na página antes da tabela
+document.body.insertBefore(searchContainer, estoqueDiv);
+
 
     const categorias = [
         { id: 328, nome: "Contagem", itens: [
@@ -347,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Criando um container para a rolagem
             const tableContainer = document.createElement("div");
             tableContainer.classList.add("table-container");
-            tableContainer.style.maxHeight = "300px"; 
+            tableContainer.style.maxHeight = "80vh"; 
             tableContainer.style.overflowY = "auto"; 
 
             const table = document.createElement("table");
@@ -437,9 +452,9 @@ document.addEventListener("DOMContentLoaded", () => {
             row.style.display = nomeItem.includes(filtro) ? "" : "none";
         });
     });
-
+            
     function baixarCSV() {
-        let csvContent = "Código,Nome,Unidade,Quantidade";
+        let csvContent = "Código;Nome;Unidade;Quantidade";
 
         document.querySelectorAll("table tbody tr").forEach(row => {
             const codigo = row.querySelector("td:nth-child(1)").textContent.trim();
@@ -448,7 +463,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const input = row.querySelector("td:nth-child(4) input");
             const quantidade = input ? input.value.trim() || "0" : "0";
 
-            csvContent += `${codigo},${nome},${unidade},${quantidade}`;
+            csvContent += `\n${codigo};${nome};${unidade};${quantidade}`;
         });
 
         const blob = new Blob([csvContent], { type: "text/csv" });

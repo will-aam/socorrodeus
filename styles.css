@@ -10,30 +10,41 @@ body {
     padding-top: 20px;
 }
 
+#estoque {
+    width: 95%;
+    height: 90vh; /* Mantém o estoque ocupando a maior parte da tela */
+    display: flex;
+    flex-direction: column;
+}
+
 .table-container {
-    max-height: 500px; /* Defina a altura máxima da tabela */
-    overflow-y: auto; /* Adiciona a rolagem apenas na vertical */
-    border: 1px solid #ddd; /* Opcional: borda para delimitar */
+    height: calc(100vh - 150px); /* Ajusta dinamicamente conforme a tela */
+    overflow-y: auto;
+    overflow-x: auto; /* Adiciona rolagem horizontal caso necessário */
+    border: 1px solid #ddd;
 }
 
 .table {
     width: 100%;
+    min-width: 600px; /* Evita que a tabela fique muito pequena */
+    table-layout: auto;
     border-collapse: collapse;
 }
 
 .table th, .table td {
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ddd;
     text-align: center;
+    white-space: nowrap; /* Evita quebra de texto nas colunas */
 }
 
 .table thead {
-    top: 0;
     background: #007bff;
     color: white;
+    position: sticky;
+    top: 0;
     z-index: 10;
 }
-
 
 button#download-btn {
     background-color: #28a745;
@@ -49,11 +60,6 @@ button#download-btn {
 
 button#download-btn:hover {
     background-color: #218838;
-}
-
-#estoque {
-    width: 90%;
-    max-width: 1000px;
 }
 
 .search-bar {
@@ -75,7 +81,6 @@ button#download-btn:hover {
     background-color: #ffffff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 1000px;
 }
 
 .category h2 {
@@ -95,24 +100,8 @@ button#download-btn:hover {
     padding: 10px;
 }
 
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table th, .table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-.table th {
-    background-color: #007bff;
-    color: white;
-}
-
 input[type="number"] {
-    width: 100px;
+    width: 80px;
     padding: 5px;
     text-align: center;
     border: 1px solid #ccc;
@@ -135,14 +124,17 @@ input[type="number"]:focus {
     border-radius: 5px;
     margin-top: 10px;
     font-weight: bold;
+    display: block;
+    width: fit-content;
 }
 
 .add-item-btn:hover {
-    background-color: #ffc005;
+    background-color: #ffb000;
 }
 
 .form-container {
     display: flex;
+    flex-direction: column;
     margin-top: 15px;
     padding: 10px;
     background: #fff;
@@ -151,17 +143,18 @@ input[type="number"]:focus {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 100%;
-    max-width: 573px;
+    max-width: 600px;
 }
 
 .form-container input {
-    width: calc(33% - 10px);
-    margin-right: 5px;
+    width: calc(100% - 10px);
+    margin-bottom: 10px;
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
     text-align: center;
 }
+
 .form-container button {
     background-color: #fc0000;
     color: #fff;
@@ -173,12 +166,15 @@ input[type="number"]:focus {
 }
 
 .form-container button:hover {
-    background-color: #fc0000;
+    background-color: #c00000;
 }
+
 .form-row {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     align-items: center;
+    justify-content: center;
 }
 
 .form-row input {
@@ -191,6 +187,62 @@ input[type="number"]:focus {
     cursor: pointer;
 }
 
-.mobile {
-    display: none;
+/* Ajuste para telas menores */
+@media (max-width: 768px) {
+    .table-container {
+        height: 60vh;
+    }
+    
+    .table th, .table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+    
+    .form-container {
+        max-width: 100%;
+    }
+    
+    .form-row input {
+        width: 100%;
+    }
+
+    .mobile {
+        display: none;
+    }
+}
+
+#search-input {
+    width: 90%;
+    max-width: 500px;
+    padding: 12px 40px 12px 15px; /* Adiciona espaço para um ícone */
+    margin: 20px auto;
+    display: block;
+    border: 2px solid #007bff;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+#search-input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Para adicionar um ícone dentro do input */
+.search-container {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+.search-container i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #007bff;
 }
