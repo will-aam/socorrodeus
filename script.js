@@ -471,38 +471,17 @@ function verificarResolucao() {
         console.log("A resolução da tela é menor que 720px!");
 
         // Selecionando corretamente os elementos da tabela
-        const codigoTh = document.querySelector("th:nth-child(1)"); // Primeiro <th> (Código)
-        const unidadeTh = document.querySelector("th:nth-child(3)"); // Terceiro <th> (Unidade)
-
-        if (codigoTh) codigoTh.classList.add("mobile");
-        if (unidadeTh) unidadeTh.classList.add("mobile");
-
-        // Selecionando as células <td> das colunas "Código" e "Unidade"
-        const codigosTd = document.querySelectorAll(".cod");
-        const unidadesTd = document.querySelectorAll(".und");
-
-        codigosTd.forEach(td => td.classList.add("mobile"));
-        unidadesTd.forEach(td => td.classList.add("mobile"));
+        document.querySelectorAll("th:nth-child(1), th:nth-child(3)").forEach(th => th.classList.add("mobile"));
+        document.querySelectorAll(".cod, .und").forEach(td => td.classList.add("mobile"));
     } else {
         console.log("A resolução é maior ou igual a 720px!");
 
         // Remover a classe caso a resolução aumente novamente
-        const codigoTh = document.querySelector("th:nth-child(1)");
-        const unidadeTh = document.querySelector("th:nth-child(3)");
-
-        if (codigoTh) codigoTh.classList.remove("mobile");
-        if (unidadeTh) unidadeTh.classList.remove("mobile");
-
-        const codigosTd = document.querySelectorAll(".cod");
-        const unidadesTd = document.querySelectorAll(".und");
-
-        codigosTd.forEach(td => td.classList.remove("mobile"));
-        unidadesTd.forEach(td => td.classList.remove("mobile"));
+        document.querySelectorAll("th:nth-child(1), th:nth-child(3)").forEach(th => th.classList.remove("mobile"));
+        document.querySelectorAll(".cod, .und").forEach(td => td.classList.remove("mobile"));
     }
 }
 
-// Executa a verificação ao carregar a página
-verificarResolucao();
-
-// Também verifica quando a janela for redimensionada
+// Garante que a função seja executada no momento correto
+document.addEventListener("DOMContentLoaded", verificarResolucao);
 window.addEventListener("resize", verificarResolucao);
